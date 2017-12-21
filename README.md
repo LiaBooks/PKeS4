@@ -23,10 +23,10 @@ In der letzten Aufgabe habt ihr bereits zwei wichtige Sensortypen (Distanzsensor
 Neben der IMU, wird vor allem aber auch die Odometrie genutzt, um die Ausführung von Bewegungsbefehlen eines Roboters zu überwachen. Daher wird das erste Ziel dieser Aufgabe sein, die Odometrie unseres Roboters in Betrieb zu nehmen.
 
 --{{3}}--
-Nachdem wir nun alle relevanten Sensoren und Aktoren unseres Roboters auslesen bzw. ansteuern können, nutzen wir diese Möglichkeiten zur Umsetzung einer intelligenten Bewegungsstrategie. 
+Nachdem wir dann alle relevanten Sensoren und Aktoren unseres Roboters auslesen bzw. ansteuern können, nutzen wir diese Möglichkeiten zur Umsetzung einer autonomen Bewegungsstrategie. 
 
 --{{4}}--
-Ziel wird es sein, sowohl eine Kollisionsvermeidung, als auch einen [Wall Follower](https://en.wikipedia.org/wiki/Maze_solving_algorithm) zu implementieren. Während die Kollisionsvermeidung sicherstellt, dass unser Roboter nicht frontal mit einem Objekt kollidiert, erlaubt die Wandverfolgung unserem Roboter durch ein Labyrinth zu finden (sofern schon beim Eingang des Labyrinths der Algorithmus begonnen wird und das Labyrinth "einfach zusammenhängend" ist).
+Ziel wird es sein, sowohl eine Kollisionsvermeidung, als auch einen [Wall Follower](https://en.wikipedia.org/wiki/Maze_solving_algorithm) zu implementieren. Während die Kollisionsvermeidung sicherstellt, dass unser Roboter nicht frontal mit einem Objekt kollidiert, erlaubt die Wandverfolgung unserem Roboter sich (theoretisch) durch ein Labyrinth zu finden.
 
 
 ## Themen und Ziele
@@ -38,10 +38,10 @@ Das Ziel dieser Aufgabe ist einen *Wall Follower* zu implementieren. Da dieser v
 Mit Hilfe der Odometrie wird es uns ermöglicht, zu überprüfen, ob unser Roboter auch unsere Steuerungskommandos so ausführt, wie wir sie geplant haben. Wie uns auffallen wird, ist das nicht immer der Fall, sodass wir eine weiter Komponente zur Motoransteuerung hinzufügen müssen: eine Regelung. 
 
 --{{3}}--
-Zwar gibt es eine Vielzahl von Möglichkeiten Regelung, weit verbreitet sind allerdings die PID-Regler. Daher werden wir uns auf diese beschränken.
+Zwar gibt es eine Vielzahl von Möglichkeiten eine Regelung umzusetzen, weit verbreitet sind allerdings die PID-Regler. Daher werden wir uns auf diese beschränken.
 
 --{{4}}--
-Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die Möglichkeit eine intelligente Bewegungsstrategie zu implementieren. Daher bildet das Thema des *Motion Planning* den letzten Schwerpunkt dieser Aufgabe.
+Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die Möglichkeit eine autonome Bewegungsstrategie zu implementieren. Daher bildet das Thema des *Motion Planning* den letzten Schwerpunkt dieser Aufgabe.
 
 
 **Themen:**
@@ -71,7 +71,7 @@ Darüber hinaus könnt ihr Informationen sowohl zur Odometrie als auch zu Rotati
 Wie schon erwähnt sollen die Daten der Odometrie zur Geschwindigkeitsregelung der Motoren genutzt werden. Daher haben wir auch einführende Artikel zu PID Reglern aufgelistet.
 
 --{{4}}--
-Letztlich sind die bisher besprochenen Komponenten unseres Roboters lediglich Voraussetzungen zur Umsetzung von abstrakten Bewegungsstrategien und Verhaltensmustern. Da diese allerdings nicht in dieser Veranstaltung behandelt werden können, wollen wir euch zumindest Ansatzpunkte für weitere Recherchen geben. Zum einen bietet das (allgemeine) Gebiet der autonomen Roboter vielseitige Herausforderungen die zunehmend durch Algorithmen und Methodiken der künstlichen Intelligenz gelöst werden. Zum anderen bilden aber vor allem die Bereiche des *Simultaneous localization and mapping (SLAM)* und des *Motion Planning* konkrete Bereiche der Robotik, die Grundlegend für die Autonomie von Robotern sind.
+Letztlich sind die bisher besprochenen Komponenten unseres Roboters lediglich Voraussetzungen zur Umsetzung von autonomen Bewegungsstrategien und Verhaltensmustern. Da diese allerdings nicht in dieser Veranstaltung behandelt werden können, wollen wir euch zumindest Ansatzpunkte für weitere Recherchen geben. Zum einen bietet das (allgemeine) Gebiet der autonomen Roboter vielseitige Herausforderungen die zunehmend durch Algorithmen und Methodiken der künstlichen Intelligenz gelöst werden. Zum anderen bilden aber vor allem die Bereiche des *Simultaneous localization and mapping (SLAM)* und des *Motion Planning* konkrete Bereiche der Robotik, die grundlegend für die Autonomie von Robotern sind.
 
 --{{5}}--
 Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Robotterplattform.
@@ -138,7 +138,7 @@ Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Ro
 # Aufgabe 4
 
 --{{1}}--
-Wie schon beschrieben, besteht die erste Teilaufgabe darin, die Odometrie des Roboters auszulesen. Dazu müsst ihr vor allem die Möglichkeiten der externen Interrupts nutzen.
+Wie schon beschrieben, besteht die erste Teilaufgabe darin, die Odometrie des Roboters in Betrieb zu nehmen. Dazu müsst ihr vor allem die Möglichkeiten der *Pin Change Interrupts* nutzen.
 
 --{{2}}--
 Basierend auf den Daten könnt ihr dann eine Geschwindigkeitsregelung für die Motoren (links und rechts) implementieren. 
@@ -168,43 +168,61 @@ Die Aufgabe ist bis zu der Woche vom **22.01. - 26.01.2018** vorzubereiten.
 ## Aufgabe 4.1
 
 --{{1}}--
-Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und Interruptroutinen schreiben.
+Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und eine Interruptroutine schreiben, um die Ticks der inkrementalen Rotationsencoder auszulesen.
 
 --{{2}}--
-Ausgabe der Odometrie soll die aktuelle Geschwindigkeit des jeweiligen Motors sein.
+Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weitern Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(int32_t&)`, sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
 
+--{{3}}--
+Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung darauß in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die Funktionen `odomVelocity()` und `odomDistance()`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
+
+**Hinweis:**
+
+Der Durchmesser für ein Rad beträgt *65mm*. 
+Die Odometrie jedes Rades besteht aus [inkrementellen Rotationsgebern](https://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder). Bei jeder Radumdrehung durchlaufen diese 224,20 Perioden in 4 Phasen. 
 
 **Ziel:**
+
 Implementierung der Odometrie.
 
 **Teilschritte:**
 
-1. Interruptroutinen schreiben
-2. Interrupts konfigurieren.
-3. Interruptroutinen eintragen.
+1. Konfiguration der Interrupts und Implementierung der *Interrupt-Service-Rountine*.
+2. Implementiert die Funktion `odomTicks()`.
+3. Implementiert die Funktionen `odomVelocity()` und `odomDistance()`
 
 ## Aufgabe 4.2
 
 --{{1}}--
 Die Odometrie, die wir in der vorhergehenden Aufgabe implementiert haben, erlaubt es uns nun, die Geschwindigkeit der Motoren/Räder zu regeln. Dazu sollt ihr in dieser Teilaufgabe einen PID-Regler implementieren und parametrisieren.
 
+--{{2}}--
+Im ersten Schritt implementiert ihr dazu die Funktion `calculate(float& target, float& current)`, in der ihr den Sollwert mit dem Istwert vergleicht und daraus eine Geschwindigkeitsvorgabe für den Motor berechnet. Beachtet das hier auch die PID-Werte benötigt werden.
+
+--{{3}}--
+In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Dazu implementiert ihr die Funktion `setVelocity()`, mit der ihr die Zielgeschwindigkeit für beide Räder individuell übergeben könnt. Durch die Funktion `update()` soll der PID-Regler dann die Berechnung der Steuersignale für die Motoren selbstständig übernehmen und an die Motoren weitergeben.
+
+--{{4}}--
+Letztlich müsst ihr noch die Parameter des PID-Reglers bestimmen. Dazu könnt ihr zum einen die [Ziegler-Nichols Methode](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) verwenden, zum anderen könnt ihr versuchen eine Geradeausfahrt durch eine gute Parametrisierung zu ereichen.
 
 **Ziel:**
-Regelt die Drehgeschwindigkeit der Motoren mit Hilfe von PID Reglern.
+
+Regelt die Drehgeschwindigkeit der Motoren mit Hilfe einies PID Regler.
 
 **Teilschritte:**
 
-1. Implementierung eines PID-Reglers.
-2. Erweiterung der Motor-API.
+1. Implementierung eines Reglerfunktionalität in `calculate(float& target, float& current)`.
+2. Implementierung der Interface-Funktionen `setVelocity()` und `update()`.
 3. Parametrisierung des Reglers für beide Motoren.
 
 ## Aufgabe 4.3
 
 --{{1}}--
-Mit der Regelungsstrategie unserer Motoren können wir nun eine intelligente Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei auch die Sicherheit des Systems beachten. Dies bedeutet zunächst, dass wir Kollisionen unseres Roboters mit Objekten in der Umgebung vermeiden sollten. Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der IR-Distanzsensoren zu implementieren.
+Mit der Regelungsstrategie unserer Motoren können wir nun eine autonome Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei auch die Sicherheit des Systems beachten. Dies bedeutet zunächst, dass wir Kollisionen unseres Roboters mit Objekten in der Umgebung vermeiden sollten. Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der IR-Distanzsensoren zu implementieren.
 
 
 **Ziel:**
+
 Nutzt die IR-Distanzsensoren um eine Kollisionsvermeidung zu implementieren.
 
 **Teilschritte:**
@@ -215,20 +233,33 @@ Nutzt die IR-Distanzsensoren um eine Kollisionsvermeidung zu implementieren.
 ## Aufgabe 4.4
 
 --{{1}}--
-Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine intelligentere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
+Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
 
 --{{2}}--
-Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter in bestimmten Abständen anhalten und erneut orientieren. Die Parametrisierung dieses Vorgehens hängt von den Ungenauigkeiten eurer Sensorik und Aktorik ab. Ermittelt diese Werte daher empirisch.
+Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit anhalten und erneut orientieren. Ihr könnt dazu die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die näheste Wand und eure Distanz zu dieser detektieren. 
 
+--{{3}}--
+Wenn ihr die Distanz zu nähesten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in welchem Distanz es nötig sein wird den Roboter erneut zu orientieren.
+
+--{{4}}--
+Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
+
+--{{5}}--
+Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein empirisches Vorgehen erfordern.
 
 **Ziel:**
+
 Implementiert eine Wandverfolgung.
 
 **Teilschritte:**
 
 1. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
-2. Plant eine Bewegung zur Wand, sodass ihr in einer gewissen Distanz *d* neben der Wand steht.
-3. Beginnt die Wandverfolgung.
+2. Plant eine Bewegung zur Wand, sodass ihr in einer gewissen Distanz von ungefähr *10-20cm* neben der Wand steht.
+3. Beginnt die Wandverfolgung:
+
+   1. Plant eine Teilstrecke entlang der Wand und berechnet die entsprechenden Steuerkommandos
+   2. Re-orientiert den Roboter um eine weiter Teilstrecke zu planen.
+   3. Wiederholt Schritte 1 und 2 um euch entlang der Wand zu bewegen.
 
 # Quizze
 
@@ -242,7 +273,7 @@ Wie auch in der letzten Aufgabe haben wir noch ein paar kurze Fragen an euch.
   [[ ]] Gleitende Interrupts
   [[X]] Maskierbare Interrupts
   [[X]] nicht-maskierbare Interrupts
-  [[X]] Inter-Prozess Interrupts 
+  [[X]] Inter-Prozessor Interrupts 
   [[ ]] Asynchrone Interrupts
   [[ ]] Synchrone Interrupts
   [[X]] Software Interrupts
