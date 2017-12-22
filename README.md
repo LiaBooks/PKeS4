@@ -152,7 +152,7 @@ Da die Kollisionsvermeidung allerdings lediglich reaktiv ist, wollen wir darübe
 
 **Hinweis:**
 
-**Verwendet bei der Bearbeitung der Aufgabe keine Funktionen aus der Arduino-Bibliothek. Lediglich die Funktionen der `Serial`-Klasse zur Ansteuerung der seriellen Schnittstelle, der Funktion `millis()` zur einfachen Zeitmessung, sowie der Funktionen aus `Wire.h` für die I^2^C Kommunikation können genutzt werden.**
+**Verwendet bei der Bearbeitung der Aufgabe keine Funktionen aus der Arduino-Bibliothek. Lediglich die Funktionen der `Serial`-Klasse zur Ansteuerung der seriellen Schnittstelle, die Funktionen `millis()` und `micros()` zur einfachen Zeitmessung, sowie die Funktionen aus `Wire.h` für die I^2^C Kommunikation können genutzt werden.**
 
 
 **Teilaufgaben**
