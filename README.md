@@ -171,15 +171,15 @@ Die Aufgabe ist bis zu der Woche vom **22.01. - 26.01.2018** vorzubereiten.
 Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und eine Interruptroutine schreiben, um die Ticks der inkrementalen Rotationsencoder auszulesen.
 
 --{{2}}--
-Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weitern Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(int32_t&)`, sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
+Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weitern Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(struct OdomData& d)`, sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
 
 --{{3}}--
-Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung darauß in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die Funktionen `odomVelocity()` und `odomDistance()`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
+Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung darauß in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die Konvertierungsfunktionen `odomVelocity( float dticks, float dtime)` und `odomDistance( float dticks)`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
 
 **Hinweis:**
 
 Der Durchmesser für ein Rad beträgt *65mm*. 
-Die Odometrie jedes Rades besteht aus [inkrementellen Rotationsgebern](https://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder). Bei jeder Radumdrehung durchlaufen diese 224,20 Perioden in 4 Phasen. 
+Die Odometrie jedes Rades besteht aus [inkrementellen Rotationsgebern](https://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder). Bei jeder Radumdrehung durchlaufen diese 224,20 Perioden in 4 Phasen. Beachtet die verschiedenen Drehrichtungen der Räder!
 
 **Ziel:**
 
@@ -187,9 +187,9 @@ Implementierung der Odometrie.
 
 **Teilschritte:**
 
-1. Konfiguration der Interrupts und Implementierung der *Interrupt-Service-Rountine*.
-2. Implementiert die Funktion `odomTicks()`.
-3. Implementiert die Funktionen `odomVelocity()` und `odomDistance()`
+1. Konfiguration der Interrupts (`initOdom()`) und Implementierung der *Interrupt-Service-Rountine*.
+2. Implementiert die Funktion `odomTicks(struct OdomData& d)`.
+3. Implementiert die Funktionen `odomVelocity( float dticks, float dtime)` und `odomDistance( float dticks)`
 
 ## Aufgabe 4.2
 
@@ -239,7 +239,7 @@ Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung ei
 Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit anhalten und erneut orientieren. Ihr könnt dazu die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die näheste Wand und eure Distanz zu dieser detektieren. 
 
 --{{3}}--
-Wenn ihr die Distanz zu nähesten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in welchem Distanz es nötig sein wird den Roboter erneut zu orientieren.
+Wenn ihr die Distanz zu nähesten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in nach welcher Distanz es nötig sein wird den Roboter erneut zu orientieren.
 
 --{{4}}--
 Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
@@ -358,13 +358,13 @@ Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS�
 
 [(:gar nicht)(:2)(:3)(:4)(:voll und ganz)]
     [                                                  ] Timer 
-    [                                                  ] ALU  
+    [                                                  ] ALU
     [                                                  ] GPIO 
     [                                                  ] MemoryMappedI 
-    [                                                  ] Flash  
-    [                                                  ] Ram    
-    [                                                  ] EEPROM       
-    [                                                  ] PWM 
+    [                                                  ] Flash
+    [                                                  ] Ram
+    [                                                  ] EEPROM
+    [                                                  ] PWM
     [                                                  ] Interrupts
         
 **Wie würden Sie Ihren Lernfortschritt (Verbesserung Ihrer Kenntnisse bzw. Fähigkeiten) im Rahmen der Arbeit mit dem RemoteLab einschätzen?**
