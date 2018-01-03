@@ -56,7 +56,7 @@ Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die Mög
 
 * Implementierung einer Interrupt-basierten Odometrie
 * Geschwindigkeitsregelung der Motoren mit Hilfe von PID Reglern
-* Implementierung einer Bewegungsstragtegie zur Wandverfolgung.
+* Implementierung einer Bewegungsstrategie zur Wandverfolgung.
 
 
 ## Weitere Informationen
@@ -74,7 +74,7 @@ Wie schon erwähnt sollen die Daten der Odometrie zur Geschwindigkeitsregelung d
 Letztlich sind die bisher besprochenen Komponenten unseres Roboters lediglich Voraussetzungen zur Umsetzung von autonomen Bewegungsstrategien und Verhaltensmustern. Da diese allerdings nicht in dieser Veranstaltung behandelt werden können, wollen wir euch zumindest Ansatzpunkte für weitere Recherchen geben. Zum einen bietet das (allgemeine) Gebiet der autonomen Roboter vielseitige Herausforderungen die zunehmend durch Algorithmen und Methodiken der künstlichen Intelligenz gelöst werden. Zum anderen bilden aber vor allem die Bereiche des *Simultaneous localization and mapping (SLAM)* und des *Motion Planning* konkrete Bereiche der Robotik, die grundlegend für die Autonomie von Robotern sind.
 
 --{{5}}--
-Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Robotterplattform.
+Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Roboterplattform.
 
 **Interrupts:**
 
@@ -168,13 +168,13 @@ Die Aufgabe ist bis zu der Woche vom **22.01. - 26.01.2018** vorzubereiten.
 ## Aufgabe 4.1
 
 --{{1}}--
-Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und eine Interruptroutine schreiben, um die Ticks der inkrementalen Rotationsencoder auszulesen.
+Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und eine Interruptroutine schreiben, um die Ticks der inkrementeller Rotationsencoder auszulesen.
 
 --{{2}}--
-Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weitern Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(struct OdomData& d)`, sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
+Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weiteren Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(struct OdomData& d)`, wie sie durch `Odometry.h` vorgegeben ist. Sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
 
 --{{3}}--
-Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung darauß in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die Konvertierungsfunktionen `odomVelocity( float dticks, float dtime)` und `odomDistance( float dticks)`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
+Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung daraus in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die in `Odometry.h` vorgegebenen Konvertierungsfunktionen `odomVelocity( int32_t dticks, float dtime)` und `odomDistance( int32_t dticks)`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
 
 **Hinweis:**
 
@@ -189,7 +189,7 @@ Implementierung der Odometrie.
 
 1. Konfiguration der Interrupts (`initOdom()`) und Implementierung der *Interrupt-Service-Rountine*.
 2. Implementiert die Funktion `odomTicks(struct OdomData& d)`.
-3. Implementiert die Funktionen `odomVelocity( float dticks, float dtime)` und `odomDistance( float dticks)`
+3. Implementiert die Funktionen `odomVelocity( int32_t dticks, float dtime)` und `odomDistance( int32_t dticks)`
 
 ## Aufgabe 4.2
 
@@ -197,23 +197,36 @@ Implementierung der Odometrie.
 Die Odometrie, die wir in der vorhergehenden Aufgabe implementiert haben, erlaubt es uns nun, die Geschwindigkeit der Motoren/Räder zu regeln. Dazu sollt ihr in dieser Teilaufgabe einen PID-Regler implementieren und parametrisieren.
 
 --{{2}}--
-Im ersten Schritt implementiert ihr dazu die Funktion `calculate(float& target, float& current)`, in der ihr den Sollwert mit dem Istwert vergleicht und daraus eine Geschwindigkeitsvorgabe für den Motor berechnet. Beachtet das hier auch die PID-Werte benötigt werden.
+Implementiert im ersten Schritt die Funktionalität eines PID-Reglers. Dies soll separat passieren, daher haben wir euch die leere `PID.h`-Datei vorgegeben.
 
 --{{3}}--
-In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Dazu implementiert ihr die Funktion `setVelocity()`, mit der ihr die Zielgeschwindigkeit für beide Räder individuell übergeben könnt. Durch die Funktion `update()` soll der PID-Regler dann die Berechnung der Steuersignale für die Motoren selbstständig übernehmen und an die Motoren weitergeben.
+In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Implementiert dazu die Funktionen der `MotorControll.h`. 
 
 --{{4}}--
-Letztlich müsst ihr noch die Parameter des PID-Reglers bestimmen. Dazu könnt ihr zum einen die [Ziegler-Nichols Methode](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) verwenden, zum anderen könnt ihr versuchen eine Geradeausfahrt durch eine gute Parametrisierung zu ereichen.
+Beginnt mit den Funktionen `stopMotors()` und `startMotors()`. Wie schon in der Aufgabe 2, soll zunächst die Möglichkeit geschaffen werden, die Motoren jederzeit zu stoppen. Dies soll durch die entsprechende Funktion `stopMotors()` sichergestellt werden. Achtet darauf, dass ihr die Motoren mit Hilfe dieser Funktion zu jeder Zeit deaktivieren könnt!
+
+--{{5}}--
+Das Gegenstück zu `stopMotors()` bildet die Funktion `startMotors()` mit deren Hilfe ihr die Motoren freigeben und aktivieren können solltet.
+
+--{{6}}--
+Nun könnt ihr die Ansteuerung und Regelung der Motoren durch einen PID-Regler implementieren. Mit der Funktion `setVelocity( float left, float right )` sollen die Zielgeschwindigkeiten für die Räder vorgegeben werden können. Da der PID-Regler nun regelmäßig entsprechende Steuerkommandos an die Motoren weitergeben muss damit diese Zielgeschwindigkeiten auch erreicht werden, soll während der `update()` Funktion die Berechnung der Steuersignale für die Motoren stattfinden und an die Motoren weitergeben werden.
+
+--{{7}}-- 
+Zur Schonung der Motoren sollt ihr folgende Regel beachten: Wenn Ist- und Soll-Geschwindigkeiten aller Motoren 0 sind und die Steuersignale für die Motoren zwischen -15 und 15 liegt, werden die Motoren deaktiviert. Weicht einer der genannten Prameter ab, sind die Motoren wieder zu aktivieren.
+
+--{{8}}--
+Letztlich müsst ihr noch die Parameter des PID-Reglers bestimmen. Dazu könnt ihr zum einen die [Ziegler-Nichols Methode](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) verwenden, zum anderen könnt ihr versuchen eine Geradeausfahrt durch eine gute Parametrisierung zu erreichen.
 
 **Ziel:**
 
-Regelt die Drehgeschwindigkeit der Motoren mit Hilfe einies PID Regler.
+Regelt die Drehgeschwindigkeit der Motoren mit Hilfe eines PID Regler.
 
 **Teilschritte:**
 
-1. Implementierung eines Reglerfunktionalität in `calculate(float& target, float& current)`.
-2. Implementierung der Interface-Funktionen `setVelocity()` und `update()`.
-3. Parametrisierung des Reglers für beide Motoren.
+1. Implementierung einen PID-Regler in der `PID.h`-Datei.
+2. Implementierung der Interface-Funktionen `stopMotors()` und `startMotors()`.
+3. Implementierung der Interface-Funktionen `setVelocity()` und `update()`.
+4. Parametrisierung des Reglers für beide Motoren.
 
 ## Aufgabe 4.3
 
@@ -236,10 +249,10 @@ Nutzt die IR-Distanzsensoren um eine Kollisionsvermeidung zu implementieren.
 Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
 
 --{{2}}--
-Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit anhalten und erneut orientieren. Ihr könnt dazu die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die näheste Wand und eure Distanz zu dieser detektieren. 
+Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit anhalten und erneut orientieren. Ihr könnt dazu die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
 
 --{{3}}--
-Wenn ihr die Distanz zu nähesten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in nach welcher Distanz es nötig sein wird den Roboter erneut zu orientieren.
+Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in nach welcher Distanz es nötig sein wird den Roboter erneut zu orientieren.
 
 --{{4}}--
 Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
