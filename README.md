@@ -267,7 +267,7 @@ Implementiert eine Wandverfolgung.
 **Teilschritte:**
 
 1. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
-2. Plant eine Bewegung zur Wand, sodass ihr in einer gewissen Distanz von ungefähr *10-20cm* neben der Wand steht.
+2. Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm* neben der Wand steht.
 3. Beginnt die Wandverfolgung:
 
    1. Plant eine Teilstrecke entlang der Wand und berechnet die entsprechenden Steuerkommandos
