@@ -254,21 +254,24 @@ Nutzt die IR-Distanzsensoren um frontale Kollisionen zu vermeiden.
 Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
 
 --{{2}}--
-Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit erneut orientieren. 
+Implementiert zunächst einen Button in Arduinoview um zwischen dem manuellen und dem autonomen Modus umschalten zu können. Beachtet, dass vor allem der *Stop* Button in jedem Fall zum Stoppen des Roboters genutzt werden können sollte.
 
 --{{3}}--
-Eine Möglichkeit zur Umsetzung wäre: Ihr könnt die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
+Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit erneut orientieren. 
 
 --{{4}}--
-Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, wann es nötig sein wird den Roboter erneut zu orientieren.
+Eine Möglichkeit zur Umsetzung wäre: Ihr könnt die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
 
 --{{5}}--
-Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
+Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, wann es nötig sein wird den Roboter erneut zu orientieren.
 
 --{{6}}--
-Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein empirisches Vorgehen erfordern.
+Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
 
 --{{7}}--
+Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein empirisches Vorgehen erfordern.
+
+--{{8}}--
 Das hier vorgestellte Vorgehen zur Wandverfolgung ist nur eine Möglichkeit. Wir sind gespannt, welche Lösungen ihr findet!
 
 **Ziel:**
@@ -277,9 +280,10 @@ Implementiert eine Wandverfolgung.
 
 **Teilschritte:**
 
-1. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
-2. Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm* neben der Wand steht.
-3. Beginnt die Wandverfolgung. Eine Möglichkeit wäre:
+1. Implementiert einen Button in Arduinoview zum Umschalten zwischen manuellen und autonomen Modus
+2. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
+3. Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm* neben der Wand steht.
+4. Beginnt die Wandverfolgung. Eine Möglichkeit wäre:
 
    1. Plant eine Teilstrecke entlang der Wand und berechnet die entsprechenden Steuerkommandos
    2. Re-orientiert den Roboter um eine weiter Teilstrecke zu planen.
