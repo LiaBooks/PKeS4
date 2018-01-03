@@ -164,7 +164,6 @@ Da die Kollisionsvermeidung allerdings lediglich reaktiv ist, wollen wir darübe
 
 Die Aufgabe ist bis zu der Woche vom **22.01. - 26.01.2018** vorzubereiten.
 
-
 ## Aufgabe 4.1
 
 --{{1}}--
@@ -200,7 +199,7 @@ Die Odometrie, die wir in der vorhergehenden Aufgabe implementiert haben, erlaub
 Implementiert im ersten Schritt die Funktionalität eines PID-Reglers. Dies soll separat passieren, daher haben wir euch die leere `PID.h`-Datei vorgegeben.
 
 --{{3}}--
-In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Implementiert dazu die Funktionen der `MotorControll.h`. 
+In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Implementiert dazu die Funktionen der `MotorControl.h`. 
 
 --{{4}}--
 Beginnt mit den Funktionen `stopMotors()` und `startMotors()`. Wie schon in der Aufgabe 2, soll zunächst die Möglichkeit geschaffen werden, die Motoren jederzeit zu stoppen. Dies soll durch die entsprechende Funktion `stopMotors()` sichergestellt werden. Achtet darauf, dass ihr die Motoren mit Hilfe dieser Funktion zu jeder Zeit deaktivieren könnt!
@@ -209,7 +208,7 @@ Beginnt mit den Funktionen `stopMotors()` und `startMotors()`. Wie schon in der 
 Das Gegenstück zu `stopMotors()` bildet die Funktion `startMotors()` mit deren Hilfe ihr die Motoren freigeben und aktivieren können solltet.
 
 --{{6}}--
-Nun könnt ihr die Ansteuerung und Regelung der Motoren durch einen PID-Regler implementieren. Mit der Funktion `setVelocity( float left, float right )` sollen die Zielgeschwindigkeiten für die Räder vorgegeben werden können. Da der PID-Regler nun regelmäßig entsprechende Steuerkommandos an die Motoren weitergeben muss damit diese Zielgeschwindigkeiten auch erreicht werden, soll während der `update()` Funktion die Berechnung der Steuersignale für die Motoren stattfinden und an die Motoren weitergeben werden.
+Nun könnt ihr die Ansteuerung und Regelung der Motoren durch einen PID-Regler implementieren. Mit der Funktion `setVelocityMotors( float left, float right )` sollen die Zielgeschwindigkeiten für die Räder vorgegeben werden können. Da der PID-Regler nun regelmäßig entsprechende Steuerkommandos an die Motoren weitergeben muss damit diese Zielgeschwindigkeiten auch erreicht werden, soll während der `updateMotors()` Funktion die Berechnung der Steuersignale für die Motoren stattfinden und an die Motoren weitergeben werden.
 
 --{{7}}-- 
 Zur Schonung der Motoren sollt ihr folgende Regel beachten: Wenn Ist- und Soll-Geschwindigkeiten aller Motoren 0 sind und die Steuersignale für die Motoren zwischen -15 und 15 liegt, werden die Motoren deaktiviert. Weicht einer der genannten Prameter ab, sind die Motoren wieder zu aktivieren.
@@ -225,22 +224,28 @@ Regelt die Drehgeschwindigkeit der Motoren mit Hilfe eines PID Regler.
 
 1. Implementierung einen PID-Regler in der `PID.h`-Datei.
 2. Implementierung der Interface-Funktionen `stopMotors()` und `startMotors()`.
-3. Implementierung der Interface-Funktionen `setVelocity()` und `update()`.
+3. Implementierung der Interface-Funktionen `setVelocityMotors( float left, float right )` und `updateMotors()`.
 4. Parametrisierung des Reglers für beide Motoren.
 
 ## Aufgabe 4.3
 
 --{{1}}--
-Mit der Regelungsstrategie unserer Motoren können wir nun eine autonome Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei auch die Sicherheit des Systems beachten. Dies bedeutet zunächst, dass wir Kollisionen unseres Roboters mit Objekten in der Umgebung vermeiden sollten. Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der IR-Distanzsensoren zu implementieren.
+Mit der Regelungsstrategie unserer Motoren können wir nun eine autonome Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei auch die Sicherheit des Systems beachten. 
+
+--{{2}}--
+Allgemein bedeutet dies, dass wir zum Beispiel Kollisionen unseres Roboters mit Objekten in der Umgebung vermeiden sollten. Da uns allerdings nur Distanzsensoren an der Front unseres Roboters zur Verfügung stehen, können wir zunächst auch nur frontale Kollisionen vermeiden.
+
+--{{3}}--
+Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der IR-Distanzsensoren zu implementieren. 
 
 
 **Ziel:**
 
-Nutzt die IR-Distanzsensoren um eine Kollisionsvermeidung zu implementieren.
+Nutzt die IR-Distanzsensoren um frontale Kollisionen zu vermeiden.
 
 **Teilschritte:**
 
-1. Implementiert eine Schutzfunktion zur Vermeidung von Kollisionen.
+1. Implementiert eine Schutzfunktion zur Vermeidung von frontalen Kollisionen.
 2. Legt empirisch einen minimalen Distanzwert für die Kollisionsvermeidung fest.
 
 ## Aufgabe 4.4
@@ -249,16 +254,22 @@ Nutzt die IR-Distanzsensoren um eine Kollisionsvermeidung zu implementieren.
 Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
 
 --{{2}}--
-Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit anhalten und erneut orientieren. Ihr könnt dazu die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
+Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit erneut orientieren. 
 
 --{{3}}--
-Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, in nach welcher Distanz es nötig sein wird den Roboter erneut zu orientieren.
+Eine Möglichkeit zur Umsetzung wäre: Ihr könnt die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
 
 --{{4}}--
-Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
+Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, wann es nötig sein wird den Roboter erneut zu orientieren.
 
 --{{5}}--
+Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
+
+--{{6}}--
 Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein empirisches Vorgehen erfordern.
+
+--{{7}}--
+Das hier vorgestellte Vorgehen zur Wandverfolgung ist nur eine Möglichkeit. Wir sind gespannt, welche Lösungen ihr findet!
 
 **Ziel:**
 
@@ -268,7 +279,7 @@ Implementiert eine Wandverfolgung.
 
 1. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
 2. Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm* neben der Wand steht.
-3. Beginnt die Wandverfolgung:
+3. Beginnt die Wandverfolgung. Eine Möglichkeit wäre:
 
    1. Plant eine Teilstrecke entlang der Wand und berechnet die entsprechenden Steuerkommandos
    2. Re-orientiert den Roboter um eine weiter Teilstrecke zu planen.
