@@ -6,42 +6,69 @@ email:    gjaeger@ovgu.de
 
 version:  1.0.0
 
-language: de_DE
+language: de
 
 narrator:  Deutsch Female
 
 -->
 
-# Einführung
+# PKeS 4
+
 
 Willkommen zurück im eLearning-System *eLab*.
 
---{{1}}--
-In der letzten Aufgabe habt ihr bereits zwei wichtige Sensortypen (Distanzsensoren, IMU) kennengelernt. Während ihr mit Hilfe der Distanzsensoren die Umgebung des Roboters wahrnehmen könnt, erlaubt euch die IMU Bewegungen des Roboters selber festzustellen. 
+    --{{0}}--
+In der letzten Aufgabe habt ihr bereits zwei wichtige Sensortypen
+(Distanzsensoren, IMU) kennengelernt. Während ihr mit Hilfe der Distanzsensoren
+die Umgebung des Roboters wahrnehmen könnt, erlaubt euch die IMU Bewegungen des
+Roboters selber festzustellen.
 
---{{2}}--
-Neben der IMU, wird vor allem aber auch die Odometrie genutzt, um die Ausführung von Bewegungsbefehlen eines Roboters zu überwachen. Daher wird das erste Ziel dieser Aufgabe sein, die Odometrie unseres Roboters in Betrieb zu nehmen.
+    --{{1}}--
+Neben der IMU, wird vor allem aber auch die Odometrie genutzt, um die Ausführung
+von Bewegungsbefehlen eines Roboters zu überwachen. Daher wird das erste Ziel
+dieser Aufgabe sein, die Odometrie unseres Roboters in Betrieb zu nehmen.
 
---{{3}}--
-Nachdem wir dann alle relevanten Sensoren und Aktoren unseres Roboters auslesen bzw. ansteuern können, nutzen wir diese Möglichkeiten zur Umsetzung einer autonomen Bewegungsstrategie. 
+    --{{2}}--
+Nachdem wir dann alle relevanten Sensoren und Aktoren unseres Roboters auslesen
+bzw. ansteuern können, nutzen wir diese Möglichkeiten zur Umsetzung einer
+autonomen Bewegungsstrategie.
 
---{{4}}--
-Ziel wird es sein, sowohl eine Kollisionsvermeidung, als auch einen [Wall Follower](https://en.wikipedia.org/wiki/Maze_solving_algorithm) zu implementieren. Während die Kollisionsvermeidung sicherstellt, dass unser Roboter nicht frontal mit einem Objekt kollidiert, erlaubt die Wandverfolgung unserem Roboter sich (theoretisch) durch ein Labyrinth zu finden.
+    --{{3}}--
+Ziel wird es sein, sowohl eine Kollisionsvermeidung, als auch einen
+[Wall Follower](https://en.wikipedia.org/wiki/Maze_solving_algorithm) zu
+implementieren. Während die Kollisionsvermeidung sicherstellt, dass unser
+Roboter nicht frontal mit einem Objekt kollidiert, erlaubt die Wandverfolgung
+unserem Roboter sich (theoretisch) durch ein Labyrinth zu finden.
+
+![maze](pics/maze.gif)<!--
+style="display:block; margin-left: auto; margin-right: auto;"
+-->
 
 
 ## Themen und Ziele
 
---{{1}}--
-Das Ziel dieser Aufgabe ist einen *Wall Follower* zu implementieren. Da dieser von unserem Roboter verlangt, nicht nur seine Umgebung wahrzunehmen, sondern auch seine Bewegungen zu planen und korrekt auszuführen, muss zunächst ein weitere Sensor, die Odometrie, in Betrieb genommen werden. Da sie auf der Abhandlung von Interrupts basiert, bilden diese einen Schwerpunkt der Aufgabe.
+    --{{0}}--
+Das Ziel dieser Aufgabe ist einen *Wall Follower* zu implementieren. Da dieser
+von unserem Roboter verlangt, nicht nur seine Umgebung wahrzunehmen, sondern
+auch seine Bewegungen zu planen und korrekt auszuführen, muss zunächst ein
+weitere Sensor, die Odometrie, in Betrieb genommen werden. Da sie auf der
+Abhandlung von Interrupts basiert, bilden diese einen Schwerpunkt der Aufgabe.
 
---{{2}}--
-Mit Hilfe der Odometrie wird es uns ermöglicht, zu überprüfen, ob unser Roboter auch unsere Steuerungskommandos so ausführt, wie wir sie geplant haben. Wie uns auffallen wird, ist das nicht immer der Fall, sodass wir eine weiter Komponente zur Motoransteuerung hinzufügen müssen: eine Regelung. 
+    --{{1}}--
+Mit Hilfe der Odometrie wird es uns ermöglicht, zu überprüfen, ob unser Roboter
+auch unsere Steuerungskommandos so ausführt, wie wir sie geplant haben. Wie uns
+auffallen wird, ist das nicht immer der Fall, sodass wir eine weiter Komponente
+zur Motoransteuerung hinzufügen müssen: eine Regelung.
 
---{{3}}--
-Zwar gibt es eine Vielzahl von Möglichkeiten eine Regelung umzusetzen, weit verbreitet sind allerdings die PID-Regler. Daher werden wir uns auf diese beschränken.
+    --{{2}}--
+Zwar gibt es eine Vielzahl von Möglichkeiten eine Regelung umzusetzen, weit
+verbreitet sind allerdings die PID-Regler. Daher werden wir uns auf diese
+beschränken.
 
---{{4}}--
-Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die Möglichkeit eine autonome Bewegungsstrategie zu implementieren. Daher bildet das Thema des *Motion Planning* den letzten Schwerpunkt dieser Aufgabe.
+    --{{3}}--
+Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die
+Möglichkeit eine autonome Bewegungsstrategie zu implementieren. Daher bildet das
+Thema des *Motion Planning* den letzten Schwerpunkt dieser Aufgabe.
 
 
 **Themen:**
@@ -54,80 +81,98 @@ Letztlich bieten uns die verschiedenen Komponenten unseres Roboters nun die Mög
 
 **Ziel(e):**
 
-* Implementierung einer Interrupt-basierten Odometrie
-* Geschwindigkeitsregelung der Motoren mit Hilfe von PID Reglern
-* Implementierung einer Bewegungsstrategie zur Wandverfolgung.
+* {{1}} Implementierung einer Interrupt-basierten Odometrie
+* {{2}} Geschwindigkeitsregelung der Motoren mit Hilfe von PID Reglern
+* {{3}} Implementierung einer Bewegungsstrategie zur Wandverfolgung.
 
 
 ## Weitere Informationen
 
---{{1}}--
-Da zur korrekten Implementierung der Odometrie die Konfiguration und Nutzung von Interrupts benötigt wird, haben wir euch, neben der Vorlesung, weitere einführende Referenzen aufgelistet. 
-
---{{2}}--
-Darüber hinaus könnt ihr Informationen sowohl zur Odometrie als auch zu Rotationsencoder finden. 
-
---{{3}}--
-Wie schon erwähnt sollen die Daten der Odometrie zur Geschwindigkeitsregelung der Motoren genutzt werden. Daher haben wir auch einführende Artikel zu PID Reglern aufgelistet.
-
---{{4}}--
-Letztlich sind die bisher besprochenen Komponenten unseres Roboters lediglich Voraussetzungen zur Umsetzung von autonomen Bewegungsstrategien und Verhaltensmustern. Da diese allerdings nicht in dieser Veranstaltung behandelt werden können, wollen wir euch zumindest Ansatzpunkte für weitere Recherchen geben. Zum einen bietet das (allgemeine) Gebiet der autonomen Roboter vielseitige Herausforderungen die zunehmend durch Algorithmen und Methodiken der künstlichen Intelligenz gelöst werden. Zum anderen bilden aber vor allem die Bereiche des *Simultaneous localization and mapping (SLAM)* und des *Motion Planning* konkrete Bereiche der Robotik, die grundlegend für die Autonomie von Robotern sind.
-
---{{5}}--
-Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Roboterplattform.
-
 **Interrupts:**
 
+    --{{0}}--
+Da zur korrekten Implementierung der Odometrie die Konfiguration und Nutzung von
+Interrupts benötigt wird, haben wir euch, neben der Vorlesung, weitere
+einführende Referenzen aufgelistet.
+
+    {{0}}
 * [Mikrocontroller.net](https://www.mikrocontroller.net/articles/Interrupt)
 * [Übersicht](https://en.wikipedia.org/wiki/Interrupt)
 
+
 **Odometrie:**
 
+    --{{1}}--
+Darüber hinaus könnt ihr Informationen sowohl zur Odometrie als auch zu
+Rotationsencoder finden.
+
+    {{1}}
 * [Odometrie](https://en.wikipedia.org/wiki/Odometry)
 * [Rotationsencoder](https://en.wikipedia.org/wiki/Rotary_encoder)
 
+
 **PID-Controller:**
 
+    --{{2}}--
+Wie schon erwähnt sollen die Daten der Odometrie zur Geschwindigkeitsregelung
+der Motoren genutzt werden. Daher haben wir auch einführende Artikel zu PID
+Reglern aufgelistet.
+
+    {{2}}
 * [Einfache Einführung](https://www.csimn.com/CSI_pages/PIDforDummies.html)
 * [Überblick](https://en.wikipedia.org/wiki/PID_controller)
 * Einführende Erklärungen:
 
-  !![PIDIntroduction](https://www.youtube.com/embed/UR0hOmjaHp0)<!--
-    width: 560px;
-    height: 315px;
-  -->
-  
+  !?[PIDIntroduction](https://www.youtube.com/embed/UR0hOmjaHp0)<!--
+    width="560px" height="315px" -->
+
+
 **Robotik:**
 
-* [Allgemeine Einführung in das Gebiet der autonomen Roboter](https://github.com/correll/Introduction-to-Autonomous-Robots/releases/download/v1.9/book.pdf) 
-  
-**Simultaneous localization and mapping (SLAM):**
+    --{{3}}--
+Letztlich sind die bisher besprochenen Komponenten unseres Roboters lediglich
+Voraussetzungen zur Umsetzung von autonomen Bewegungsstrategien und
+Verhaltensmustern. Da diese allerdings nicht in dieser Veranstaltung behandelt
+werden können, wollen wir euch zumindest Ansatzpunkte für weitere Recherchen
+geben. Zum einen bietet das (allgemeine) Gebiet der autonomen Roboter
+vielseitige Herausforderungen die zunehmend durch Algorithmen und Methodiken der
+künstlichen Intelligenz gelöst werden. Zum anderen bilden aber vor allem die
+Bereiche des *Simultaneous localization and mapping (SLAM)* und des
+*Motion Planning* konkrete Bereiche der Robotik, die grundlegend für die
+Autonomie von Robotern sind.
 
-* [Übersicht bei Wikipedia](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping)
-* [Vorlesung zu SLAM (YouTube)](https://www.youtube.com/watch?v=U6vr3iNrwRA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_)
-* Visualisierung von SLAM:
 
-  !![SimplePresentationSLAM](https://www.youtube.com/embed/SeNLUW79_-c)<!--
-    width: 560px;
-    height: 315px;
-  -->
+    {{3}}
+* [Allgemeine Einführung in das Gebiet der autonomen Roboter](https://github.com/correll/Introduction-to-Autonomous-Robots/releases/download/v1.9/book.pdf)
+* *Simultaneous localization and mapping (SLAM):*
+  * [Übersicht bei Wikipedia](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping)
+  * [Vorlesung zu SLAM (YouTube)](https://www.youtube.com/watch?v=U6vr3iNrwRA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_)
+  * Visualisierung von SLAM:
 
-**Motion Planning:**
+      !?[SimplePresentationSLAM](https://www.youtube.com/embed/SeNLUW79_-c)<!-- width="560px" height="315px" -->
 
-* [Vorlesungsfolien](https://ipvs.informatik.uni-stuttgart.de/mlr/marc/teaching/14-Robotics/04-pathPlanning.pdf)
-* Erklärungen zu Motion Planning in relation zu SLAM:
 
-  !![Visualisierungsvideo](https://www.youtube.com/embed/qXZt-B7iUyw?list=PLKwqbLx4DLDGkT0Tc6yiqsjDmH395hgvF)<!--
-    width: 560px;
-    height: 315px;
-  -->
+* *Motion Planning:*
+
+  * [Vorlesungsfolien](https://ipvs.informatik.uni-stuttgart.de/mlr/marc/teaching/14-Robotics/04-pathPlanning.pdf)
+  * Erklärungen zu Motion Planning in relation zu SLAM:
+
+    !?[Visualisierungsvideo](https://www.youtube.com/embed/qXZt-B7iUyw?list=PLKwqbLx4DLDGkT0Tc6yiqsjDmH395hgvF)<!--
+      width="560px" height="315px" -->
+
+
 
 **PKeS:**
 
+    --{{4}}--
+Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer
+Roboterplattform.
+
+    {{4}}
 * [Datenblatt IMU (MPU-9255)](https://stanford.edu/class/ee267/misc/MPU-9255-Datasheet.pdf)
 * [Datenblatt IMU (MPU-9255) Register Map](https://stanford.edu/class/ee267/misc/MPU-9255-Register-Map.pdf)
 * [Datenblatt infrarot Distanzsensor Sharp GP2Y0A41SK0F](http://sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a41sk_e.pdf)
-* [Datenblatt infrarot Distanzsensor Sharp GP2Y0A02YK0F]( http://sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a02yk_e.pdf)
+* [Datenblatt infrarot Distanzsensor Sharp GP2Y0A02YK0F](http://sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a02yk_e.pdf)
 * [Datenblatt Motortreiber](http://www.st.com/content/ccc/resource/technical/document/datasheet/59/d0/ce/41/56/bb/4b/10/DM00034699.pdf/files/DM00034699.pdf/jcr:content/translations/en.DM00034699.pdf)
 * [Schaltbelegungsplan](https://github.com/liaScript/PKeS0/blob/master/materials/robubot_stud.pdf?raw=true)
 * [Arduinoview](https://github.com/fesselk/Arduinoview/blob/master/doc/Documetation.md)
@@ -135,86 +180,106 @@ Wie immer findet ihr hier aber auch die Datenblätter der Komponenten unserer Ro
 * [Interrupt Reference in der AVR Libc](http://www.atmel.com/webdoc/avrlibcreferencemanual/group__avr__interrupts.html)
 
 
+
 # Aufgabe 4
 
---{{1}}--
-Wie schon beschrieben, besteht die erste Teilaufgabe darin, die Odometrie des Roboters in Betrieb zu nehmen. Dazu müsst ihr vor allem die Möglichkeiten der *Pin Change Interrupts* nutzen.
-
---{{2}}--
-Basierend auf den Daten könnt ihr dann eine Geschwindigkeitsregelung für die Motoren (links und rechts) implementieren. 
-
---{{3}}--
-Nachdem wir dann die Umgebung unseres Roboters wahrnehmen können und darauf reagieren können, sollte das erste Ziel unserer Bewegungsstrategie sein, eine Kollisionsvermeidung zu implementieren. So soll verhindert werden, dass unser Roboter mit einem Objekt kollidiert.
-
---{{4}}--
-Da die Kollisionsvermeidung allerdings lediglich reaktiv ist, wollen wir darüber hinaus auch eine aktive Bewegungsstrategie implementieren. In unserem Fall soll der Roboter eine Wandverfolgung durchführen.
-
-
-**Hinweis:**
-
-**Verwendet bei der Bearbeitung der Aufgabe keine Funktionen aus der Arduino-Bibliothek. Lediglich die Funktionen der `Serial`-Klasse zur Ansteuerung der seriellen Schnittstelle, die Funktionen `millis()` und `micros()` zur einfachen Zeitmessung, sowie die Funktionen aus `Wire.h` für die I^2^C Kommunikation können genutzt werden.**
-
+                                    --{{0}}--
+Um die Bearbeitung der Aufgabe wieder etwas einfacher zu gestalten und zu
+strukturieren, kann sie in folgenden Teilaufgaben aufgeteilt werden.
 
 **Teilaufgaben**
 
-* *4.1:* Implementierung der Odometrie.
-* *4.2:* PID-Regelung der Geschwindigkeit der Motoren.
-* *4.3:* Kollisionsvermeidung auf Basis der IR-Distanzsensoren.
-* *4.4:* Wandverfolgung.
+* {{1}} _Implementierung der Odometrie._
 
-Die Aufgabe ist bis zu der Woche vom **22.01. - 26.01.2018** vorzubereiten.
+                                    --{{1}}--
+  Wie schon beschrieben, besteht die erste Teilaufgabe darin, die Odometrie des
+  Roboters in Betrieb zu nehmen. Dazu müsst ihr vor allem die Möglichkeiten der
+  *Pin Change Interrupts* nutzen.
 
-## Aufgabe 4.1
+* {{2}} _PID-Regelung der Geschwindigkeit der Motoren._
 
---{{1}}--
-Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und eine Interruptroutine schreiben, um die Ticks der inkrementeller Rotationsencoder auszulesen.
+                                    --{{2}}--
+  Basierend auf den Daten könnt ihr dann eine Geschwindigkeitsregelung für die
+  Motoren (links und rechts) implementieren.
 
---{{2}}--
-Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert. Um ihre Daten auch im weiteren Programm nutzbar zu machen, benötigen wir noch ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks(struct OdomData& d)`, wie sie durch `Odometry.h` vorgegeben ist. Sie sollte die Anzahl von Ticks für beide Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten, dass keine weiteren Interrupts das Auslesen der Register stören, da so inkonsistente Daten entstehen könnten.
+* {{3}} _Kollisionsvermeidung auf Basis der IR-Distanzsensoren._
 
---{{3}}--
-Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung daraus in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz berechnen. Implementiert dazu die in `Odometry.h` vorgegebenen Konvertierungsfunktionen `odomVelocity( int32_t dticks, float dtime)` und `odomDistance( int32_t dticks)`. Die Geschwindigkeit sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
+                                    --{{3}}--
+  Nachdem wir dann die Umgebung unseres Roboters wahrnehmen können und darauf
+  reagieren können, sollte das erste Ziel unserer Bewegungsstrategie sein, eine
+  Kollisionsvermeidung zu implementieren. So soll verhindert werden, dass unser
+  Roboter mit einem Objekt kollidiert.
 
-**Hinweis:**
+* {{4}} _Wandverfolgung._
 
-Der Durchmesser für ein Rad beträgt *65mm*. 
-Die Odometrie jedes Rades besteht aus [inkrementellen Rotationsgebern](https://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder). Bei jeder Radumdrehung durchlaufen diese 224,20 Perioden in 4 Phasen. Beachtet die verschiedenen Drehrichtungen der Räder!
+                                    --{{4}}--
+  Da die Kollisionsvermeidung allerdings lediglich reaktiv ist, wollen wir
+  darüber hinaus auch eine aktive Bewegungsstrategie implementieren. In unserem
+  Fall soll der Roboter eine Wandverfolgung durchführen.
 
-**Ziel:**
 
-Implementierung der Odometrie.
+> **Hinweis:**
+>
+> Verwendet bei der Bearbeitung der Aufgabe keine Funktionen aus der
+> Arduino-Bibliothek. Lediglich die Funktionen der `Serial`-Klasse zur
+> Ansteuerung der seriellen Schnittstelle, die Funktionen `millis()` und
+> `micros()` zur einfachen Zeitmessung, sowie die Funktionen aus `Wire.h` für
+> die I^2^C Kommunikation können genutzt werden.
+
+
+## Teilaufgabe 1
+
+                                  --{{1}}--
+Das Ziel dieser Aufgabe ist es, die Odometrie an unserem Roboter in Betrieb zu
+nehmen. Dazu müsst ihr zunächst die entsprechenden Interrupts konfigurieren und
+eine Interruptroutine schreiben, um die Ticks der inkrementeller
+Rotationsencoder auszulesen.
+
+                                  --{{2}}--
+Durch die Interrupts ist die Funktionalität der Odometrie bereits implementiert.
+Um ihre Daten auch im weiteren Programm nutzbar zu machen, benötigen wir noch
+ein entsprechendes Interface. Implementiert dazu die Funktion `odomTicks`, wie
+sie durch `Odometry.h` vorgegeben ist. Sie sollte die Anzahl von Ticks für beide
+Motoren zurückgeben. Bei der Implementierung dieser Funktion ist zu beachten,
+dass keine weiteren Interrupts das Auslesen der Register stören, da so
+inkonsistente Daten entstehen könnten.
+
+                                  --{{3}}--
+Da *Ticks* ein hardwarenahes Maß ist, wollen wir zur weiteren Verwendung daraus
+in einem dritten Schritt die Geschwindigkeit und zurückgelegte Distanz
+berechnen. Implementiert dazu die in `Odometry.h` vorgegebenen
+Konvertierungsfunktionen `odomVelocity` und `odomDistance`. Die Geschwindigkeit
+sollte in $\frac{m}{s}$ während die Distanz in $m$ zurückgegeben werden sollte.
+
+
+**Ziel:** Implementierung der Odometrie.
+
 
 **Teilschritte:**
 
-1. Konfiguration der Interrupts (`initOdom()`) und Implementierung der *Interrupt-Service-Rountine*.
-2. Implementiert die Funktion `odomTicks(struct OdomData& d)`.
-3. Implementiert die Funktionen `odomVelocity( int32_t dticks, float dtime)` und `odomDistance( int32_t dticks)`
+* {{1}} Konfiguration der Interrupts (`initOdom()`) und Implementierung der
+  _Interrupt-Service-Rountine_.
+* {{2}} Implementiert die Funktion `odomTicks(struct OdomData& d)`.
+* {{3}} Implementiert die Funktionen `odomVelocity(int32_t dticks, float dtime)`
+  und `odomDistance(int32_t dticks)`
 
-## Aufgabe 4.2
 
---{{1}}--
-Die Odometrie, die wir in der vorhergehenden Aufgabe implementiert haben, erlaubt es uns nun, die Geschwindigkeit der Motoren/Räder zu regeln. Dazu sollt ihr in dieser Teilaufgabe einen PID-Regler implementieren und parametrisieren.
+                                     {{3}}
+> **Hinweis:**
+>
+> Der Durchmesser für ein Rad beträgt *65mm*. Die Odometrie jedes Rades besteht
+> aus
+> [inkrementellen Rotationsgebern](https://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder).
+> Bei jeder Radumdrehung durchlaufen diese 224,20 Perioden in 4 Phasen. Beachtet
+> die verschiedenen Drehrichtungen der Räder!
 
---{{2}}--
-Implementiert im ersten Schritt die Funktionalität eines PID-Reglers. Dies soll separat passieren, daher haben wir euch die leere `PID.h`-Datei vorgegeben.
 
---{{3}}--
-In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren durch den PID-Regler abstrahieren. Implementiert dazu die Funktionen der `MotorControl.h`. 
+## Teilaufgabe 2
 
---{{4}}--
-Beginnt mit den Funktionen `stopMotors()` und `startMotors()`. Wie schon in der Aufgabe 2, soll zunächst die Möglichkeit geschaffen werden, die Motoren jederzeit zu stoppen. Dies soll durch die entsprechende Funktion `stopMotors()` sichergestellt werden. Achtet darauf, dass ihr die Motoren mit Hilfe dieser Funktion zu jeder Zeit deaktivieren könnt!
-
---{{5}}--
-Das Gegenstück zu `stopMotors()` bildet die Funktion `startMotors()` mit deren Hilfe ihr die Motoren freigeben und aktivieren können solltet.
-
---{{6}}--
-Nun könnt ihr die Ansteuerung und Regelung der Motoren durch einen PID-Regler implementieren. Mit der Funktion `setVelocityMotors( float left, float right )` sollen die Zielgeschwindigkeiten für die Räder vorgegeben werden können. Da der PID-Regler nun regelmäßig entsprechende Steuerkommandos an die Motoren weitergeben muss damit diese Zielgeschwindigkeiten auch erreicht werden, soll während der `updateMotors()` Funktion die Berechnung der Steuersignale für die Motoren stattfinden und an die Motoren weitergeben werden.
-
---{{7}}-- 
-Zur Schonung der Motoren sollt ihr folgende Regel beachten: Wenn Ist- und Soll-Geschwindigkeiten aller Motoren 0 sind und die Steuersignale für die Motoren zwischen -15 und 15 liegt, werden die Motoren deaktiviert. Weicht einer der genannten Prameter ab, sind die Motoren wieder zu aktivieren.
-
---{{8}}--
-Letztlich müsst ihr noch die Parameter des PID-Reglers bestimmen. Dazu könnt ihr zum einen die [Ziegler-Nichols Methode](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) verwenden, zum anderen könnt ihr versuchen eine Geradeausfahrt durch eine gute Parametrisierung zu erreichen.
+                                    --{{0}}--
+Die Odometrie, die wir in der vorhergehenden Aufgabe implementiert haben,
+erlaubt es uns nun, die Geschwindigkeit der Motoren/Räder zu regeln. Dazu sollt
+ihr in dieser Teilaufgabe einen PID-Regler implementieren und parametrisieren.
 
 **Ziel:**
 
@@ -222,57 +287,104 @@ Regelt die Drehgeschwindigkeit der Motoren mit Hilfe eines PID Regler.
 
 **Teilschritte:**
 
-1. Implementierung einen PID-Regler in der `PID.h`-Datei.
-2. Implementierung der Interface-Funktionen `stopMotors()` und `startMotors()`.
-3. Implementierung der Interface-Funktionen `setVelocityMotors( float left, float right )` und `updateMotors()`.
-4. Parametrisierung des Reglers für beide Motoren.
+* {{1}} Implementierung einen PID-Regler in der `PID.h`-Datei.
 
-## Aufgabe 4.3
+                                      --{{1}}--
+  Implementiert im ersten Schritt die Funktionalität eines PID-Reglers. Dies
+  soll separat passieren, daher haben wir euch die leere `PID.h`-Datei
+  vorgegeben.
 
---{{1}}--
-Mit der Regelungsstrategie unserer Motoren können wir nun eine autonome Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei auch die Sicherheit des Systems beachten. 
+* {{2}} Implementierung der Interface-Funktionen `stopMotors()` und
+  `startMotors()`.
 
---{{2}}--
-Allgemein bedeutet dies, dass wir zum Beispiel Kollisionen unseres Roboters mit Objekten in der Umgebung vermeiden sollten. Da uns allerdings nur Distanzsensoren an der Front unseres Roboters zur Verfügung stehen, können wir zunächst auch nur frontale Kollisionen vermeiden.
+                                      --{{2}}--
+  In einem zweiten Schritt wollen wir nun die eigentliche Steuerung der Motoren
+  durch den PID-Regler abstrahieren. Implementiert dazu die Funktionen der
+  `MotorControl.h`. Beginnt mit den Funktionen `stopMotors` und `startMotors`.
+  Wie schon in der Aufgabe 2, soll zunächst die Möglichkeit geschaffen werden,
+  die Motoren jederzeit zu stoppen. Dies soll durch die entsprechende Funktion
+  `stopMotors` sichergestellt werden. Achtet darauf, dass ihr die Motoren mit
+  Hilfe dieser Funktion zu jeder Zeit deaktivieren könnt!
 
---{{3}}--
-Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der IR-Distanzsensoren zu implementieren. 
+                                      --{{2}}--
+  Das Gegenstück zu `stopMotors` bildet die Funktion `startMotors` mit deren
+  Hilfe ihr die Motoren freigeben und aktivieren können solltet.
 
+* {{3}} Implementierung der Interface-Funktionen
+  `setVelocityMotors(float left, float right)` und `updateMotors()`.
 
-**Ziel:**
+                                      --{{3}}--
+  Nun könnt ihr die Ansteuerung und Regelung der Motoren durch einen PID-Regler
+  implementieren. Mit der Funktion `setVelocityMotors` sollen die
+  Zielgeschwindigkeiten für die Räder vorgegeben werden können. Da der
+  PID-Regler nun regelmäßig entsprechende Steuerkommandos an die Motoren
+  weitergeben muss damit diese Zielgeschwindigkeiten auch erreicht werden, soll
+  während der `updateMotors` Funktion die Berechnung der Steuersignale für die
+  Motoren stattfinden und an die Motoren weitergeben werden.
 
-Nutzt die IR-Distanzsensoren um frontale Kollisionen zu vermeiden.
+* {{4}} Parametrisierung des Reglers für beide Motoren.
+
+                                      --{{4}}--
+  Zur Schonung der Motoren sollt ihr folgende Regel beachten: Wenn Ist- und
+  Soll-Geschwindigkeiten aller Motoren 0 sind und die Steuersignale für die
+  Motoren zwischen -15 und 15 liegt, werden die Motoren deaktiviert. Weicht
+  einer der genannten Prameter ab, sind die Motoren wieder zu aktivieren.
+
+                                      --{{5}}--
+  Letztlich müsst ihr noch die Parameter des PID-Reglers bestimmen. Dazu könnt
+  ihr zum einen die
+  [Ziegler-Nichols Methode](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method)
+  verwenden, zum anderen könnt ihr versuchen eine Geradeausfahrt durch eine gute
+  Parametrisierung zu erreichen.
+
+## Teilaufgabe 3
+
+                                  --{{0}}--
+Mit der Regelungsstrategie unserer Motoren können wir nun eine autonome
+Bewegungsstrategie implementieren. Da dies bedeutet, dass unser Roboter autonom
+die Geschwindigkeitsvorgaben für die Motoren bestimmen wird, müssen wir dabei
+auch die Sicherheit des Systems beachten.
+
+**Ziel:** Nutzt die IR-Distanzsensoren um frontale Kollisionen zu vermeiden.
 
 **Teilschritte:**
 
-1. Implementiert eine Schutzfunktion zur Vermeidung von frontalen Kollisionen.
-2. Legt empirisch einen minimalen Distanzwert für die Kollisionsvermeidung fest.
+* {{1}} Implementiert eine Schutzfunktion zur Vermeidung von frontalen
+  Kollisionen.
 
-## Aufgabe 4.4
+                                --{{1}}--
+  Allgemein bedeutet dies, dass wir zum Beispiel Kollisionen unseres Roboters
+  mit Objekten in der Umgebung vermeiden sollten. Da uns allerdings nur
+  Distanzsensoren an der Front unseres Roboters zur Verfügung stehen, können wir
+  zunächst auch nur frontale Kollisionen vermeiden.
 
---{{1}}--
-Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere Bewegungsstrategie zu implementieren: eine Wandverfolgung.
+* {{2}} Legt empirisch einen minimalen Distanzwert für die Kollisionsvermeidung
+  fest.
 
---{{2}}--
-Implementiert zunächst einen Button in Arduinoview um zwischen dem manuellen und dem autonomen Modus umschalten zu können. Beachtet, dass vor allem der *Stop* Button in jedem Fall zum Stoppen des Roboters genutzt werden können sollte.
+                                --{{2}}--
+  Daher ist das Ziel dieser Teilaufgabe, eine Kollisionsvermeidung auf Basis der
+  IR-Distanzsensoren zu implementieren.
 
---{{3}}--
-Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst ihr den Roboter von Zeit zu Zeit erneut orientieren. 
+## Teilaufgabe 4
 
---{{4}}--
-Eine Möglichkeit zur Umsetzung wäre: Ihr könnt die IMU nutzen und den Roboter auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure Distanz zu dieser detektieren. 
+                                --{{0}}--
+Nachdem unsere Sensoren und Aktoren, sowie eine einfache Kollisionsvermeidung
+einsatzbereit sind, können wir diese Komponenten nutzen um eine weitere
+Bewegungsstrategie zu implementieren: eine Wandverfolgung.
 
---{{5}}--
-Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, wann es nötig sein wird den Roboter erneut zu orientieren.
 
---{{6}}--
-Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen *10cm* und *20cm* zu folgen.
 
---{{7}}--
-Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein empirisches Vorgehen erfordern.
 
---{{8}}--
-Das hier vorgestellte Vorgehen zur Wandverfolgung ist nur eine Möglichkeit. Wir sind gespannt, welche Lösungen ihr findet!
+
+
+
+
+
+
+
+
+
+
 
 **Ziel:**
 
@@ -280,131 +392,215 @@ Implementiert eine Wandverfolgung.
 
 **Teilschritte:**
 
-1. Implementiert einen Button in Arduinoview zum Umschalten zwischen manuellen und autonomen Modus
-2. Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
-3. Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm* neben der Wand steht.
-4. Beginnt die Wandverfolgung. Eine Möglichkeit wäre:
+* {{1}} Implementiert einen Button in Arduinoview zum Umschalten zwischen
+  manuellen und autonomen Modus
 
-   1. Plant eine Teilstrecke entlang der Wand und berechnet die entsprechenden Steuerkommandos
-   2. Re-orientiert den Roboter um eine weiter Teilstrecke zu planen.
-   3. Wiederholt Schritte 1 und 2 um euch entlang der Wand zu bewegen.
+                                --{{1}}--
+  Implementiert zunächst einen Button in Arduinoview um zwischen dem manuellen
+  und dem autonomen Modus umschalten zu können. Beachtet, dass vor allem der
+  *Stop* Button in jedem Fall zum Stoppen des Roboters genutzt werden können
+  sollte.
+
+* {{2}} Implementiert eine initiale Lokalisierung: "Wo ist die nächste Wand?"
+
+                                --{{2}}--
+  Ein Problem beim Lösen dieser Aufgabe ist, dass unsere Distanzsensoren
+  lediglich an der Front unseres Roboters montiert sind. Da wir dementsprechend
+  nicht direkt unsere aktuelle, seitliche Distanz zur Wand messen können, müsst
+  ihr den Roboter von Zeit zu Zeit erneut orientieren.
+
+* {{3}} Plant eine Bewegung zur Wand, sodass ihr in einer Distanz von *10-20cm*
+  neben der Wand steht.
+
+                                --{{3}}--
+  Eine Möglichkeit zur Umsetzung wäre: Ihr könnt die IMU nutzen und den Roboter
+  auf der Stelle drehen lassen. So könnt ihr die naheliegendste Wand und eure
+  Distanz zu dieser detektieren.
+
+* {{4}} Beginnt die Wandverfolgung. Eine Möglichkeit wäre:
+
+                                --{{4}}--
+  Wenn ihr die Distanz zu naheliegendsten Wand kennt, könnt ihr abhängig davon
+  eure Bewegung planen. Das heißt in welche Richtung ihr euch bewegen wollt
+  (Soll die Wand auf der linken oder rechten Seite des Roboters sein?) und wie
+  ihr möglichst parallel zur Wand fahren könnt. Überlegt außerdem, wann es nötig
+  sein wird den Roboter erneut zu orientieren.
+
+  ---
+  {{5}} __1__ Plant eine Teilstrecke entlang der Wand und berechnet die
+              entsprechenden Steuerkommandos
+
+                              --{{5}}--
+  Durch wiederholtes Planen der Bewegungsstrategie und Re-Orientieren des
+  Roboters sollte es euch möglich sein, der Wand in einer Distanz zwischen
+  *10cm* und *20cm* zu folgen.
+
+  ---
+  {{6}} __2__ Re-orientiert den Roboter um eine weiter Teilstrecke zu planen.
+
+                              --{{6}}--
+  Während der Implementierung werdet ihr mehrere Parameter, die das Verhalten
+  eures Roboters beeinflussen werden, bestimmen. Legt diese in Abhängigkeit zur
+  Ungenauigkeit eurer Sensorik und Aktorik fest. Dies wird voraussichtlich ein
+  empirisches Vorgehen erfordern.
+
+  ---
+  {{7}} __3__ Wiederholt Schritte __1__ und __2__ um euch entlang der Wand zu
+              bewegen.
+
+                              --{{7}}--
+  Das hier vorgestellte Vorgehen zur Wandverfolgung ist nur eine Möglichkeit.
+  Wir sind gespannt, welche Lösungen ihr findet!
+
+
+# **Programmierung**
+
+
+
 
 # Quizze
 
---{{1}}--
+    --{{0}}--
 Wie auch in der letzten Aufgabe haben wir noch ein paar kurze Fragen an euch.
 
 ## Interrupts
 
-**Welche Kategorien von Interrupts können allgemein unterschieden werden?**
+    --{{0}}--
+Welche Kategorien von Interrupts können allgemein unterschieden werden?
 
-  [[ ]] Gleitende Interrupts
-  [[X]] Maskierbare Interrupts
-  [[X]] nicht-maskierbare Interrupts
-  [[X]] Inter-Prozessor Interrupts 
-  [[ ]] Asynchrone Interrupts
-  [[ ]] Synchrone Interrupts
-  [[X]] Software Interrupts
-  [[X]] Spurious Interrupts
+    {{0-1}}
+    [[ ]] Gleitende Interrupts
+    [[X]] Maskierbare Interrupts
+    [[X]] nicht-maskierbare Interrupts
+    [[X]] Inter-Prozessor Interrupts
+    [[ ]] Asynchrone Interrupts
+    [[ ]] Synchrone Interrupts
+    [[X]] Software Interrupts
+    [[X]] Spurious Interrupts
 
-**Was versteht man unter *nested interrupts*?**
 
-  [( )] Programmabläufe, die lediglich aus Interrupts bestehen.
-  [(X)] Interrupts, die während der Abarbeitung eines vorhergehenden Interrupts bearbeitet werden.
-  [( )] Interrupts, die weitere Interrupts auslösen.
-  [( )] Programmabläufe, die Interrupts aus Sicherheitsgründen verbieten.
-        
+    --{{1}}--
+Was versteht man unter *nested interrupts*?
 
-**Welche Typen von Interrupts unterscheidet der AVR ATmega32U4?**
+    {{1-2}}
+    [( )] Programmabläufe, die lediglich aus Interrupts bestehen.
+    [(X)] Interrupts, die während der Abarbeitung eines vorhergehenden Interrupts bearbeitet werden.
+    [( )] Interrupts, die weitere Interrupts auslösen.
+    [( )] Programmabläufe, die Interrupts aus Sicherheitsgründen verbieten.
 
-  [( )] Externe und interne Interrupts.
-  [(X)] Interrupts mit und ohne Interrupt Flag.
-  [( )] Kurze und Lange Interrupts.
-  
-**Was bezeichnet die *Interrupt Response Time*?**
 
-  [( )] Die Abarbeitungsdauer eines Interrupts.
-  [(X)] Die Zeit gemessen von dem Auftreten eines Interrupt-Signals bis zum Beginn der Abarbeitung der Interruptroutine.
-  [( )] Die Zeit gemessen von dem Sprung aus dem Programmablauf bis zum Sprung zurück in den Programmablauf.
+    --{{2}}--
+Welche Typen von Interrupts unterscheidet der AVR ATmega32U4?
 
-**Was ist die *Interrupt Response Time* des AVR ATmega32U4?**
+    {{2-3}}
+    [( )] Externe und interne Interrupts.
+    [(X)] Interrupts mit und ohne Interrupt Flag.
+    [( )] Kurze und Lange Interrupts.
 
-  [(X)] 5 Clock Cylces
-  [( )] 10 Clock Cylces
-  [( )] 15 Clock Cylces
+
+    --{{3}}--
+Was bezeichnet die *Interrupt Response Time*?
+
+    {{3-4}}
+    [( )] Die Abarbeitungsdauer eines Interrupts.
+    [(X)] Die Zeit gemessen von dem Auftreten eines Interrupt-Signals bis zum Beginn der Abarbeitung der Interruptroutine.
+    [( )] Die Zeit gemessen von dem Sprung aus dem Programmablauf bis zum Sprung zurück in den Programmablauf.
+
+
+    --{{4}}--
+Was ist die *Interrupt Response Time* des AVR ATmega32U4?
+
+    {{4}}
+    [(X)] 5 Clock Cylces
+    [( )] 10 Clock Cylces
+    [( )] 15 Clock Cylces
 
 ## Odometrie
 
-**Welchen Vorteil hat ein Absolutwertgeben (engl. *absolute encoder*) gegenüber einem Inkrementalgeber (engl. *incremental encoder*)?**
+    --{{0}}--
+Welchen Vorteil hat ein Absolutwertgeber (*absolute encoder*) gegenüber einem
+Inkrementalgeber (*incremental encoder*)?
 
-  [(X)] Er ermöglicht die direkte Schätzung der Position eines Motors/Rades.
-  [( )] Er kann bei höheren Frequenzen betrieben werden.
-  [( )] Er hat einen einfacheren Aufbau.
+    [(X)] Er ermöglicht die direkte Schätzung der Position eines Motors/Rades.
+    [( )] Er kann bei höheren Frequenzen betrieben werden.
+    [( )] Er hat einen einfacheren Aufbau.
 
 ## PID Regler
 
-**Wofür steht PID im Namen des PID Reglers?**
+    --{{0}}--
+Wofür steht PID im Namen des PID Reglers?
 
-  [( )] Passing, Integrating, Deviating 
-  [(X)] Proportional, Integral, Derivative
-  [( )] Proportional, Interfacing, Deviating 
-  
-**Wozu wird der I-Anteil in einem PID Regler benötigt?**
+    {{0-1}}
+    [( )] Passing, Integrating, Deviating
+    [(X)] Proportional, Integral, Derivative
+    [( )] Proportional, Interfacing, Deviating
 
-  [(X)] Um einen durch sinkende Fehlerwerte verbleibenden Regelfehler auszugleichen.
-  [( )] Um das Verhalten des geregelten Systems auszugleichen.
-  [( )] Um Fehler des Sensors auszugleichen.
+
+    --{{1}}--
+Wozu wird der I-Anteil in einem PID Regler benötigt?
+
+    {{1}}
+    [(X)] Um einen durch sinkende Fehlerwerte verbleibenden Regelfehler auszugleichen.
+    [( )] Um das Verhalten des geregelten Systems auszugleichen.
+    [( )] Um Fehler des Sensors auszugleichen.
 
 ## Bewegungsstrategien
 
-**Wofür steht die Abkürzung SLAM?**
+    --{{0}}--
+Wofür steht die Abkürzung SLAM?
 
-  [( )] Self-centered localization and motion
-  [( )] Similarity based labeling and motion
-  [( )] Simultaneous localization and motion
-  [(X)] Simultaneous localization and mapping
+    [( )] Self-centered localization and motion
+    [( )] Similarity based labeling and motion
+    [( )] Simultaneous localization and motion
+    [(X)] Simultaneous localization and mapping
 
 # Abschlussfragebogen
 
 Bearbeitungsdauer: 7-10 Minuten
 
-Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS” und insbesondere zur Arbeit mit dem RemoteLab (eLab - Webinterface) auszufüllen. Bitte nehmen Sie sich die Zeit! Für aussagekräftige Ergebnisse, die zur Verbesserung des RemoteLabs führen, sind wir auf Ihre Unterstützung angewiesen! 
+Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS”
+und insbesondere zur Arbeit mit dem RemoteLab (eLab - Webinterface) auszufüllen.
+Bitte nehmen Sie sich die Zeit! Für aussagekräftige Ergebnisse, die zur
+Verbesserung des RemoteLabs führen, sind wir auf Ihre Unterstützung angewiesen!
 
-**Wie würden Sie ihre Kenntnisse der folgenden Konzepte und Anwendungen NACH der Teilnahme an der LV “Prinzipien und Komponenten eingebetteter Systeme” einschätzen?**
- 
-**Meine Kenntnisse sind …**
+Wie würden Sie ihre Kenntnisse der folgenden Konzepte und Anwendungen NACH der
+Teilnahme an der LV "Prinzipien und Komponenten eingebetteter Systeme"
+einschätzen?
 
-[(:sehr gering)(:2)(:3)(:4)(:sehr hoch)]
-    [ ] Roboteranwendungen (ROS/LegoMindStorm/...)
-    [ ] Eingebettete Controller/Boards (Arduino/Raspberry PI/PIC/BeagleBone/...)
-    [ ] Eingebettete Betriebssysteme (RTOS, Contiki, embedded Linux/ ...)
-    [ ] SmartPhone-Anwendungen (Android/iOS/Windows)
-    [ ] Web-Frontend (HTML/Javascript/...)
-    [ ] Web-Backend (PHP/Perl/RubyRails/NodeJS/...)
+**Meine Kenntnisse sind ...**
 
-**Hat Ihnen die Arbeit mit dem RemoteLab dabei geholfen, folgende Konzepte besser zu verstehen?**
+    [(:sehr gering)(:2)(:3)(:4)(:sehr hoch)]
+    [                                      ] Roboteranwendungen (ROS/LegoMindStorm/...)
+    [                                      ] Eingebettete Controller/Boards (Arduino/Raspberry PI/PIC/BeagleBone/...)
+    [                                      ] Eingebettete Betriebssysteme (RTOS, Contiki, embedded Linux/ ...)
+    [                                      ] SmartPhone-Anwendungen (Android/iOS/Windows)
+    [                                      ] Web-Frontend (HTML/Javascript/...)
+    [                                      ] Web-Backend (PHP/Perl/RubyRails/NodeJS/...)
 
-[(:gar nicht)(:2)(:3)(:4)(:voll und ganz)]
-    [                                                  ] Timer 
-    [                                                  ] ALU
-    [                                                  ] GPIO 
-    [                                                  ] MemoryMappedI 
-    [                                                  ] Flash
-    [                                                  ] Ram
-    [                                                  ] EEPROM
-    [                                                  ] PWM
-    [                                                  ] Interrupts
-        
+
+Hat Ihnen die Arbeit mit dem RemoteLab dabei geholfen, folgende Konzepte besser zu verstehen?
+
+    [(:gar nicht)(:2)(:3)(:4)(:voll und ganz)]
+    [                                        ] Timer
+    [                                        ] ALU
+    [                                        ] GPIO
+    [                                        ] MemoryMappedIO
+    [                                        ] Flash
+    [                                        ] Ram
+    [                                        ] EEPROM
+    [                                        ] PWM
+    [                                        ] Interrupts
+
 **Wie würden Sie Ihren Lernfortschritt (Verbesserung Ihrer Kenntnisse bzw. Fähigkeiten) im Rahmen der Arbeit mit dem RemoteLab einschätzen?**
 
 [(:sehr gering)(:2)(:3)(:4)(:sehr hoch)]
-    [ ] Systemnahe C-Programmierung (Registerzugriff, Bitmanipulationen, ...) 
+    [ ] Systemnahe C-Programmierung (Registerzugriff, Bitmanipulationen, ...)
     [ ] Grundlage sensorischer Umgebungserfassung (Wirkprinzipien/Modalitäten)         
     [ ] Signalverarbeitung (Filter/Transformation/Detektion)         
     [ ] Ansteuerung Aktuatorik (PWM/Steuerung & Regelung)    
-    [ ] Grundlagen Eingebetteter Systeme (Physical Computing) 
+    [ ] Grundlagen Eingebetteter Systeme (Physical Computing)
     [ ] Verstehendes Lesen von Datenblättern        
- 
+
 **Gab es Aufgaben, wo Sie sich zusätzliche Hilfestellungen, Informationen oder Lernmaterialien gewünscht hätten? Beschreiben Sie diese kurz:**
 
 [[___ ___ ___ ___]]
@@ -416,7 +612,7 @@ Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS�
 
 [(:deutlich niedriger)(:2)(:3)(:4)(:deutlich hoeher)]
     [ ] Im Vergleich mit anderen LV: Wie schätzen Sie das inhaltliche Niveau der Lehrveranstaltung ein?                       
-    [ ] Im Vergleich mit anderen Lehrveranstaltungen: Wie hoch war der Zeitaufwand für diese LV? 
+    [ ] Im Vergleich mit anderen Lehrveranstaltungen: Wie hoch war der Zeitaufwand für diese LV?
 
 [(:sehr niedrig)(:2)(:3)(:4)(:sehr hoch)]
     [ ] Wie beurteilen Sie den Zeitaufwand für die Bearbeitung der praktischen Aufgaben?    
@@ -527,7 +723,7 @@ Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS�
     [ ] Quellcode schreiben  
     [ ] Dokumentation lesen
     [ ] Rechner und Programme einrichten/konfigurieren  
-    [ ] Assembler-Programmierung 
+    [ ] Assembler-Programmierung
     [ ] Konsolen-Tools (Eingabeaufforderung)       
     [ ] Programmieren allgemein      
     [ ] Hardwarenahe Programmierung        
@@ -549,7 +745,7 @@ Wir bitten Sie nun noch einen Abschlussfragebogen zur Lehrveranstaltung “PKeS�
 **Wenn Sie mit KommilitonInnen zusammengearbeitet haben, was war Ihre Motivation dafür?**
 
 [(:nicht wichtig)(:2)(:3)(:4)(:sehr wichtig)]
-    [ ] Ich finde es wichtig, andere Studierende zu treffen. 
+    [ ] Ich finde es wichtig, andere Studierende zu treffen.
     [ ] Wir konnten uns die Arbeit aufteilen.
     [ ] Ich konnte dadurch von erfahreneren Studierenden lernen.
     [ ] Mit anderen Studierenden zusammen, macht die Bearbeitung der Aufgaben mehr Spaß.
