@@ -1615,6 +1615,20 @@ static float odomVelocity( int32_t dticks, float dtime)
 ```
 ``` cpp -PID.h
 #pragma once
+
+struct PID
+{
+    float kp, ki, kd, maxi, mini;
+    struct
+    {
+        float d,i;
+    } state;
+};
+
+
+void PIDInit(struct PID& pid,float kp,float ki,float kd,float maxi,float mini);
+
+float PIDCalculate(struct PID& pid,float setpoint, float value);
 ```
 ``` cpp PID.cpp
 #include "PID.h"
