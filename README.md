@@ -93,7 +93,7 @@ send.service("@0arduino", {start: "CodeRunner", settings: null})
 		.receive("ok", e => {
 
 				send.lia("output", e.message);
-				send.service("@0arduino",  {compile: compile, order: ["sketch.ino", "Distance.h", "Distance.cpp", "everytime.h", "IMU.h", "IMU.cpp", "IMURegisters.h", "Motor.h", "Motor.cpp", , "MotorControl.h", "MotorControl.cpp", "Odometry.h", "Odometry.cpp", "PID.h", "PID.cpp"]})
+				send.service("@0arduino",  {compile: compile, order: ["sketch.ino", "Distance.h", "Distance.cpp", "everytime.h", "IMU.h", "IMU.cpp", "IMURegisters.h", "Motor.h", "Motor.cpp", "MotorControl.h", "MotorControl.cpp", "Odometry.h", "Odometry.cpp", "PID.h", "PID.cpp"]})
 				.receive("ok", e => {
 
 						send.lia("log", e.message, e.details, true);
