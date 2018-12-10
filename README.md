@@ -83,15 +83,17 @@ send.service("@0arduino", {start: "CodeRunner", settings: null})
                                        "sketch/IMURegisters.h": `@input(6)`,
                                        "sketch/Motor.h": `@input(7)`,
                                        "sketch/Motor.cpp": `@input(8)`,
-                                       "sketch/Odometry.h": `@input(9)`,
-                                       "sketch/Odometry.cpp": `@input(10)`,
-                                       "sketch/PID.h": `@input(11)`,
-                                       "sketch/PID.cpp": `@input(12)`,
+                                       "sketch/MotorControl.h": `@input(9)`,
+                                       "sketch/MotorControl.cpp": `@input(10)`,
+                                       "sketch/Odometry.h": `@input(11)`,
+                                       "sketch/Odometry.cpp": `@input(12)`,
+                                       "sketch/PID.h": `@input(13)`,
+                                       "sketch/PID.cpp": `@input(14)`,
                                        "build/": ""}})
 		.receive("ok", e => {
 
 				send.lia("output", e.message);
-				send.service("@0arduino",  {compile: compile, order: ["sketch.ino", "Distance.h", "Distance.cpp", "everytime.h", "IMU.h", "IMU.cpp", "IMURegisters.h", "Motor.h", "Motor.cpp", "Odometry.h", "Odometry.cpp", "PID.h", "PID.cpp"]})
+				send.service("@0arduino",  {compile: compile, order: ["sketch.ino", "Distance.h", "Distance.cpp", "everytime.h", "IMU.h", "IMU.cpp", "IMURegisters.h", "Motor.h", "Motor.cpp", , "MotorControl.h", "MotorControl.cpp", "Odometry.h", "Odometry.cpp", "PID.h", "PID.cpp"]})
 				.receive("ok", e => {
 
 						send.lia("log", e.message, e.details, true);
@@ -1575,6 +1577,23 @@ void deactivateMotors();
 void activateMotors();
 ```
 ``` cpp Motor.cpp
+
+```
+``` cpp -MotorControl.h
+#pragma once
+
+#include <inttypes.h>
+
+void updateMotors();
+
+// set the Velocity of both motor in m/s
+void setVelocityMotors(float left, float right);
+
+// these functions start and stop the automatic motor activation
+void startMotors();
+void stopMotors();
+```
+``` cpp MotorControl.cpp
 
 ```
 ``` cpp -Odometry.h
