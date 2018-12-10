@@ -1635,56 +1635,12 @@ static float odomVelocity( int32_t dticks, float dtime)
 ``` cpp -PID.h
 #pragma once
 
-struct PID
-{
-    float kp, ki, kd, maxi, mini;
-    struct
-    {
-        float d,i;
-    } state;
-};
-
-
-void PIDInit(struct PID& pid,float kp,float ki,float kd,float maxi,float mini);
-
-float PIDCalculate(struct PID& pid,float setpoint, float value);
+// Todo
 ```
 ``` cpp PID.cpp
 #include "PID.h"
 
-void PIDInit(struct PID& pid,float kp,float ki,float kd,float maxi,float mini)
-{
-#define SET(X) pid.X=X
-    SET(kp);
-    SET(ki);
-    SET(kd);
-    SET(maxi);
-    SET(mini);
-#undef SET
-}
-
-float PIDCalculate(struct PID& pid,float setpoint, float value)
-{
-    float ret;
-    float error = setpoint - value;
-
-    float p = pid.kp * error;
-    ret = p;
-
-    float i = pid.state.i + error;
-    float maxi= pid.maxi;
-    float mini= pid.mini;
-    //clamp i
-    i = (i>maxi)?(maxi):((i<mini)?(mini):(i));
-    ret += pid.ki * i;
-    pid.state.i = i;
-
-    float d = value - pid.state.d;
-    ret += pid.kd * d;
-    pid.state.d = value;
-
-    return ret;
-}
+// Todo
 ```
 @sketch
 
