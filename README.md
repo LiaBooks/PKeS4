@@ -453,7 +453,7 @@ window.addEventListener("beforeunload", function (event) {
     <br>
     <iframe id="arduinoviewer" style="margin-left: 3px; width: 99%; max-height: 432px;" src="https://elab.ovgu.robulab.com/arduinoview"></iframe>
   </span>
-  <span class="col-xs-12 col-md-6" style="border-style: solid; overflow: auto">
+  <span class="col-xs-12 col-md-6" style="border-style: solid; width: 49.5%; height: 480px; float: right; min-width: 480px; overflow: auto"">
     <canvas id="bot_show" style="width: calc(16 * 10vw); height: calc(9 * 10vw);"></canvas>
   </span>
 </div>
