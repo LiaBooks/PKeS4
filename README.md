@@ -535,7 +535,7 @@ implementieren. Während die Kollisionsvermeidung sicherstellt, dass unser
 Roboter nicht frontal mit einem Objekt kollidiert, erlaubt die Wandverfolgung
 unserem Roboter sich (theoretisch) durch ein Labyrinth zu finden.
 
-![maze](pics/maze.gif)<!--
+![maze](https://raw.githubusercontent.com/liaScript/PKeS4/master/pics/maze.gif)<!--
 style="display:block; margin-left: auto; margin-right: auto;"
 -->
 
